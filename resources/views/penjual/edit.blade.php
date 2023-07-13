@@ -40,7 +40,7 @@
 
         <div class="mb-3">
           <label for="harga_barang" class="form-label">HARGA BARANG</label>
-          <input type="number" class="form-control" name="harga_barang" value="{{ $penjual->harga_barang }}"  id="harga_barang" >
+          <input type="text" class="form-control" name="harga_barang" value="{{ $penjual->harga_barang }}"  id="harga_barang" >
         </div>
 
         <div class="mb-3">
