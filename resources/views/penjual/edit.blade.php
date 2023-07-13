@@ -7,12 +7,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
   </head>
   <body>
-
+<style>
+  
+</style>
     <div class="container mt-5">
-        <h1 class="text-center mb-5">Form Edit Data Penjual</h1>
+        <h1 class="text-center mb-5">Data Penjual</h1>  
         <div class="card">
             <div class="card-body">
-       <form action="{{ route('penjual.update', $penjual->id)}}" method="POST">
+       <form action="{{ route('penjual.update', $penjual->id )}}" method="POST">
         @csrf
         @method('patch')
         <div class="mb-3">
@@ -21,20 +23,33 @@
         </div>
 
         <div class="mb-3">
-          <label for="nama_barang" class="form-label">NAMA BARANG</label>
-          <input type="text" class="form-control" name="nama_barang" value="{{ $penjual->nama_barang }}"  id="nama_barang" >
-        </div>
+          <label for="jenis_barang" class="form-label">JENIS BARANG</label>
+            <select class="form-control" name="jenis_barang" id="jenis_barang">
+              @foreach ($jenis as $jb)
+              @if($jb->id==$penjual->jenis_barang)
+              <option selected value="{{ $jb->id }}" {{($penjual->jenis_barang->jenis ?? old('jenis')) == $jb->id ? 'selected' : '' }}>
+                  {{ $jb->jenis_barang }}
+              </option>
+              @else 
+               <option value="{{ $jb->id }}" {{($penjual->jenis_barang->jenis ?? old('jenis')) == $jb->id ? 'selected' : '' }}>
+                  {{ $jb->jenis_barang }}
+              </option>
+              @endif
+              @endforeach
+          </select>
 
         <div class="mb-3">
-          <label for="jumlah_barang" class="form-label">JUMLAH BARANG</label>
-          <input type="text" class="form-control" name="jumlah_barang" value="{{ $penjual->jumlah_barang }}"  id="jumlah_barang" >
+          <label for="harga_barang" class="form-label">HARGA BARANG</label>
+          <input type="number" class="form-control" name="harga_barang" value="{{ $penjual->harga_barang }}"  id="harga_barang" >
         </div>
 
         <div class="mb-3">
           <label for="alamat" class="form-label">ALAMAT</label>
           <input type="text" class="form-control" name="alamat" value="{{ $penjual->alamat }}"  id="alamat" >
         </div>
-        <button type="submit" class="btn btn-primary float-end">Simpan</button>
+
+        </div>
+        <button type="submit" class="btn btn-primary">Simpan</button>
       </form>
             </div>
         </div>

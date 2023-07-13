@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Penjual;
+use App\Models\Jenis;
 use Illuminate\Http\Request;
 
 class PenjualController extends Controller
@@ -14,6 +15,7 @@ class PenjualController extends Controller
     {
         return view('penjual.index')->with([
             'penjual' => Penjual::all(),
+            'jenis' => Jenis::all(),
         ]);
     }
 
@@ -22,7 +24,9 @@ class PenjualController extends Controller
      */
     public function create()
     {
-        return view('penjual.create');
+        return view('penjual.create', [
+            'jenis' => Jenis::all(),
+        ]);
     }
 
     /**
@@ -31,16 +35,16 @@ class PenjualController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_pemesan' => 'required|min:3',
-            'nama_barang' => 'required|min:3',
-            'jumlah_barang' => 'required|min:1',
-            'alamat' => 'required|min:3',
+            'nama_pemesan' => 'required',
+            'jenis_barang' => 'required',
+            'harga_barang' => 'required',
+            'alamat' => 'required',
         ]);
 
         $penjual = new Penjual;
         $penjual ->nama_pemesan = $request->nama_pemesan;
-        $penjual ->nama_barang = $request->nama_barang;
-        $penjual ->jumlah_barang = $request->jumlah_barang;
+        $penjual ->jenis_barang = $request->jenis_barang;
+        $penjual ->harga_barang = $request->harga_barang;
         $penjual ->alamat = $request->alamat;
         $penjual ->save();
 
@@ -61,8 +65,12 @@ class PenjualController extends Controller
      */
     public function edit(string $id)
     {
-        return view('penjual.edit')->with([
-            'penjual' => Penjual::find($id),
+        $penjual = Penjual::find($id);
+        if (!$penjual) return redirect()->route('penjual.index')
+            ->with('error_message', 'penjual dengan id = ' . $id . ' tidak ditemukan');
+        return view('penjual.edit', [
+            'penjual' => $penjual,
+            'jenis' => Jenis::all()
         ]);
     }
 
@@ -72,23 +80,20 @@ class PenjualController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nama_pemesan' => 'required|min:3',
-            'nama_barang' => 'required|min:3',
-            'jumlah_barang' => 'required|min:1',
-            'alamat' => 'required|min:3',
+            'nama_pemesan' => 'required',
+            'jenis_barang' => 'required',
+            'harga_barang' => 'required',
+            'alamat' => 'required',
         ]);
 
         $penjual = Penjual::find($id);
-        $penjual->nama_pemesan = $request->nama_pemesan;
+        $penjual ->nama_pemesan = $request->nama_pemesan;
+        $penjual ->jenis_barang = $request->jenis_barang;
+        $penjual ->harga_barang = $request->harga_barang;
+        $penjual ->alamat = $request->alamat;
+        $penjual ->save();
 
-        $penjual->nama_barang = $request->nama_barang;
-
-        $penjual->jumlah_barang = $request->jumlah_barang;
-
-        $penjual->alamat = $request->alamat;
-        $penjual->save();
-
-        return to_route('penjual.index')->with('succes', 'data di tambah');
+        return to_route('penjual.index')->with('success', 'Data Di Tambah');
     }
 
     /**

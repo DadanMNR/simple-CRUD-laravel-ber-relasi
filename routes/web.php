@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PenjualController;
+use App\Http\Controllers\JenisController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,3 +20,4 @@ Route::get('/', function () {
 });
 
 Route::resource('penjual', PenjualController::class);
+Route::resource('jenis', JenisController::class);

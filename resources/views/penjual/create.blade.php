@@ -3,51 +3,51 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Data Penjual</title>
+    <title>Bootstrap demo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
   </head>
   <body>
-    
-        <div class="container mt-5">
-            <h1 class="text-center mb-5"> DATA PENJUAL</h1>
 
-            <a href="{{ route('penjual.index') }}" class="btn btn-primary mb-3"><i class="bi bi-arrow-left"></i>Tambah Data</a>
-
-            @if(count($errors)>0)
-            <div class="alert alert-danger" role="alert">
-              <h4 class="alert-heading">Error!</h4>
-
-              @foreach ($errors->all() as $errors)
-              <span>{{ $errors }}</span>
-              @endforeach
-            </div>
-            @endif
-
-                <div class="card">
-                    <div class="card-body">
-                            <form action="{{ route('penjual.store') }}" method="POST">
-                                @csrf
-                                <div class="mb-3">
-                                  <label for="nama_pemesan" class="form-label">NAMA PEMESAN</label>
-                                  <input type="text" class="form-control" name="nama_pemesan" id="nama_pemesan">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="nama_barang" class="form-label">NAMA BARANG</label>
-                                    <input type="text" class="form-control" name="nama_barang" id="nama_barang">
-                                  </div>
-                                  <div class="mb-3">
-                                    <label for="jumlah_barang" class="form-label">JUMLAH BARANG</label>
-                                    <input type="number" class="form-control" name="jumlah_barang" id="jumlah_barang">
-                                  </div>
-                                  <div class="mb-3">
-                                    <label for="alamat" class="form-label">ALAMAT</label>
-                                    <input type="text" class="form-control" name="alamat" id="alamat">  
-                                  </div>
-                                <button type="submit" class="btn btn-primary float-end">Simpan</button>
-                              </form>        
-                    </div>
-                </div>
+    <div class="container mt-5">
+        <h1 class="text-center mb-5">Menambahkan Data</h1>  
+        <div class="card">
+            <div class="card-body">
+       <form action="{{ route('penjual.store')}}" method="POST">
+        @csrf
+        <div class="mb-3">
+          <label for="nama_pemesan" class="form-label">NAMA PEMESAN</label>
+          <input type="text" class="form-control" name="nama_pemesan" id="nama_pemesan" >
         </div>
+
+        <div class="mb-3">
+          <label for="jenis_barang" class="form-label">JENIS BARANG</label>
+          <select class="form-control" name="jenis_barang" id="jenis_barang">
+            <option value="">-- PILIH --</option>
+            @foreach ($jenis as $jb)
+            <option value="{{$jb->id}}">
+              {{$jb->jenis_barang}}</option>
+            @endforeach
+        </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="harga_barang" class="form-label">HARGA BARANG</label>
+          <input type="text" class="form-control" name="harga_barang" id="harga_barang" >
+        </div>
+
+        <div class="mb-3">
+          <label for="alamat" class="form-label">ALAMAT</label>
+           <input type="text" class="form-control" name="alamat" id="alamat">
+        </div>
+          <button type="submit" class="btn btn-primary ">Simpan</button>
+       <a href="{{ route('penjual.index')}}" class="btn btn-default">
+      </form>
+            </div>
+        </div>
+    </div>
+
+      </table>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
   </body>
