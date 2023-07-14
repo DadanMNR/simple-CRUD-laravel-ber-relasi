@@ -13,6 +13,7 @@ class PenjualController extends Controller
      */
     public function index()
     {
+        $data = Penjual::all();
         return view('penjual.index')->with([
             'penjual' => Penjual::all(),
             'jenis' => Jenis::all(),
